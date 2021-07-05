@@ -1,0 +1,35 @@
+body {
+    height: 100vh;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+}
+
+.centerBox {
+    text-align: center;
+}
+
+.func_btn {
+    text-decoration: none;
+}
+
+.loginBox {
+    background: url("../img/wallpaper.jpg");
+    background-size: cover;
+    position: relative;
+}
+
+.loginBox::before {
+    content: "";
+    opacity: 0.5;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #000;
+}
+
+.innerLoginBox {
+    position:relative;
+    border-radius: 5px;
+}
