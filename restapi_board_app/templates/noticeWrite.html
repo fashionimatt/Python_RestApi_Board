@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="kr">
+
+<head>
+    {% include "include/meta.html" %}
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+</head>
+
+<body>
+    <div class="animation over-hide">
+        <form name="contForm" id="contForm" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="section over-hide padding-top-120 padding-top-mob-nav padding-bottom-120 section-background-20 background-img-top">
+                <div class="section-1400 pt-xl-4">
+                    <div class="container-fluid padding-top-bottom-80">
+                        <div class="row">
+                            <div class="col-lg">
+                                <h2 class="display-8 mb-3">
+                                    자유 게시판
+                                </h2>
+                                <p class="lead mb-0 title-text-left-line-small">
+                                    회원분들의 의견을 자유롭게 나누세요.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-1400">
+                    <div class="container-fluid" id="select-all-wrap">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-9 mt-4">
+
+                                <table class="table">
+                                    <tbody>
+                                        <tr class="text-center">
+                                            <td>제목</td>
+                                            <td>
+                                                <input type="text" name="title" id="title">
+                                            </td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td>
+                                                내용
+                                            </td>
+                                            <td>
+                                                <input type="text" name="cntnt" id="cntnt">
+                                            </td>
+                                        </tr>
+                                      </tbody>
+                                </table>
+
+                            </div>
+
+                            <div class="col-9 text-end mt-1 mb-3">
+                                <a class="func_btn" href="#" onClick="goWrite();return false;"
+                                                style="background:#000000;color:#ffffff;padding:3px 6px 4px 6px;border-radius:4px;">등록</a>
+                                <a class="func_btn" href="#" onClick="goDetailToList();return false;"
+                                                style="background:#000000;color:#ffffff;padding:3px 6px 4px 6px;border-radius:4px;margin:0 0 0 5px;">취소</a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {% include "include/js.html" %}
+    {% include "include/modalDefault.html" %}
+	{% include "js/commonJs.html" %}
+	{% include "js/noticeJs.html" %}
+
+</body>
+
+</html>

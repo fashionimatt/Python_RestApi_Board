@@ -11,6 +11,7 @@
 <body>
     <div class="animation over-hide">
         <form name="contForm" id="contForm" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="section over-hide padding-top-120 padding-top-mob-nav padding-bottom-120 section-background-20 background-img-top">
                 <div class="section-1400 pt-xl-4">
                     <div class="container-fluid padding-top-bottom-80">
@@ -37,54 +38,30 @@
                                           <th scope="col">No</th>
                                           <th scope="col">제목</th>
                                           <th scope="col">등록일</th>
-                                          <th scope="col">조회수</th>
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        <tr class="text-center">
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        {% for notice in notices %}
-                                        <tr>
-                                          <th scope="row">1</th>
-                                          <td>Mark</td>
-                                          <td>Otto</td>
-                                          <td>@mdo</td>
-                                        </tr>
+                                        {% for value in resDict_list %}
+                                            <tr class="text-center">
+                                              <th scope="row">{{ value.brd_uid }}</th>
+                                              <td>
+                                                <a class="func_btn" href="#" onClick="goListToDtail('{{ value.brd_uid }}'); return false;">
+                                                    {{ value.title }}
+                                                </a>
+                                            </td>
+                                              <td>
+                                                {% if value.rgst_dttm %}
+                                                    {{ value.rgst_dttm }}
+                                                {% endif %}	    	
+                                              </td>
+                                            </tr>
                                         {% endfor %}
                                       </tbody>
                                 </table>
                             </div>
 
                             <div class="col-9 text-end mt-1 mb-3">
-                                <a class="func_btn" href="#" onClick="goLstToWDtl('INS','');return false;"
+                                <a class="func_btn" href="#" onClick="goWritePage();return false;"
                                                 style="background:#000000;color:#ffffff;padding:3px 6px 4px 6px;border-radius:4px;">글 작성</a>
                                 </td>
                             </div>
@@ -95,23 +72,23 @@
                 </div>
 
                 <div class="d-flex justify-content-center" style="margin:10px 0 0 0;">
-                    {% if notices.has_other_pages %}
+                    {% if resDict_list.has_other_pages %}
                         <nav aria-label="Page navigation example">
                             <ul class="pagination pagination-sm">
-                                {% if notices.has_previous %}
-                                    <li class="page-item" style="margin: 0 5px 0 0;"><a class="page-link" href="?page={{ notices.previous_page_number }}"><span aria-hidden="true">&laquo;</span></a></li>
+                                {% if resDict_list.has_previous %}
+                                    <li class="page-item" style="margin: 0 5px 0 0;"><a class="page-link" href="?page={{ resDict_list.previous_page_number }}"><span aria-hidden="true">&laquo;</span></a></li>
                                 {% else %}
                                     <li class="page-item disabled" style="margin: 0 5px 0 0;"><a class="page-link" href="#"><span aria-hidden="true">&laquo;</span></a></li>
                                 {% endif %}
-                                {% for i in notices.paginator.page_range %}
-                                {% if notices.number == i %}
+                                {% for i in resDict_list.paginator.page_range %}
+                                {% if resDict_list.number == i %}
                                     <li class="page-item active" style="margin: 0 5px 0 0;"><a class="page-link" href="?page={{ i }}"><span>{{ i }}</span></a></li>
                                 {% else %}
                                     <li class="page-item" style="margin: 0 5px 0 0;"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                                 {% endif %}
                                 {% endfor %}
-                                {% if notices.has_next %}
-                                    <li class="page-item"><a class="page-link" href="?page={{ notices.next_page_number }}"><span aria-hidden="true">&raquo;</span></a></li>
+                                {% if resDict_list.has_next %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ resDict_list.next_page_number }}"><span aria-hidden="true">&raquo;</span></a></li>
                                 {% else %}
                                     <li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&raquo;</span></a></li>
                                 {% endif %}
@@ -121,12 +98,15 @@
                 </div>
             </div>
 
+        <input type="hidden" name="brd_uid" id="brd_uid" value=""/>
+
         </form>
     </div>
 
     {% include "include/js.html" %}
     {% include "include/modalDefault.html" %}
 	{% include "js/commonJs.html" %}
+	{% include "js/noticeJs.html" %}
 
 </body>
 

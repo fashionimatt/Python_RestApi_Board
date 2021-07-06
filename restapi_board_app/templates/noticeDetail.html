@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="kr">
+
+<head>
+    {% include "include/meta.html" %}
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+</head>
+
+<body>
+    <div class="animation over-hide">
+        <form name="contForm" id="contForm" method="POST" enctype="multipart/form-data">
+            <div class="section over-hide padding-top-120 padding-top-mob-nav padding-bottom-120 section-background-20 background-img-top">
+                <div class="section-1400 pt-xl-4">
+                    <div class="container-fluid padding-top-bottom-80">
+                        <div class="row">
+                            <div class="col-lg">
+                                <h2 class="display-8 mb-3">
+                                    자유 게시판
+                                </h2>
+                                <p class="lead mb-0 title-text-left-line-small">
+                                    회원분들의 의견을 자유롭게 나누세요.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-1400">
+                    <div class="container-fluid" id="select-all-wrap">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-9 mt-4">
+
+                                <table class="table">
+                                    <tbody>
+                                        {% for value in resDict %}
+                                            <tr class="text-center">
+                                                <td>제목</td>
+                                                <td>
+                                                    {{ value.title }}
+                                                </td>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td>작성일</td>
+                                                <td>
+                                                    {% if value.rgst_dttm %}
+                                                        {{ value.rgst_dttm|slice:"0:4" }}
+                                                    {% endif %}	    	
+                                                </td>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td>
+                                                    내용
+                                                </td>
+                                                <td>
+                                                    {{ value.cntnt }}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                </table>
+
+                            </div>
+
+                            <div class="col-9 text-end mt-1 mb-3">
+                                <a class="func_btn" href="#" onClick="goDetailToList();return false;"
+                                                style="background:#000000;color:#ffffff;padding:3px 6px 4px 6px;border-radius:4px;">목록으로 돌아가기</a>
+                                </td>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        <input type="hidden" name="brd_uid" id="brd_uid" value=""/>
+
+        </form>
+    </div>
+
+    {% include "include/js.html" %}
+    {% include "include/modalDefault.html" %}
+	{% include "js/commonJs.html" %}
+	{% include "js/noticeJs.html" %}
+
+</body>
+
+</html>
